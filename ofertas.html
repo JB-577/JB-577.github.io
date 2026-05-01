@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecofresh - Ofertas Relámpago</title>
+    <style>
+        :root {
+            --fondo-sitio: #121212; --color-texto: #f3f3f3; --color-header: #4caf50; 
+            --fondo-tarjeta: #1e1e1e; --borde-tarjeta: #333; --color-boton: #ffc107; --color-secundario: #29b6f6; --color-nav-texto: #000;
+        }
+        [data-tema="claro"] {
+            --fondo-sitio: #f3f3f3; --color-texto: #111; --color-header: #1a4a2e; 
+            --fondo-tarjeta: #fff; --borde-tarjeta: #ddd; --color-boton: #ffb300; --color-secundario: #03a9f4; --color-nav-texto: #fff;
+        }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; background-color: var(--fondo-sitio); color: var(--color-texto); transition: 0.3s; }
+        
+        /* HEADER Y NAV UNIVERSAL */
+        header { background-color: var(--color-header); padding: 15px 20px; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        .header-top { display: flex; justify-content: center; align-items: center; max-width: 1300px; margin: 0 auto; flex-wrap: wrap; }
+        .logo-container { display: flex; align-items: center; text-decoration: none; }
+        .img-logo { height: 45px; margin-right: 12px; border-radius: 8px; background: white; padding: 2px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        .logo-texto { font-size: 28px; font-weight: bold; letter-spacing: 1px; color: #fff; text-transform: uppercase; }
+        
+        nav { background-color: var(--color-secundario); padding: 10px 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .nav-content { max-width: 1300px; margin: 0 auto; display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
+        .nav-content a { color: var(--color-nav-texto); text-decoration: none; font-size: 15px; font-weight: bold; padding: 5px 10px; border-radius: 5px; transition: 0.3s; }
+        .nav-content a:hover { background-color: rgba(255,255,255,0.3); }
+
+        /* CUERPO OFERTAS */
+        .banner-ofertas { background: linear-gradient(135deg, var(--color-secundario), var(--color-header)); color: white; padding: 30px; text-align: center; margin-bottom: 25px; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
+        .contador-oferta { font-size: 18px; background: rgba(0,0,0,0.3); display: inline-block; padding: 10px 20px; border-radius: 50px; margin-top: 10px; font-weight: bold; }
+        
+        main { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .grid-ofertas { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+        .tarjeta-oferta { background: var(--fondo-tarjeta); border-radius: 12px; padding: 15px; position: relative; border: 2px solid var(--color-secundario); transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .tarjeta-oferta:hover { transform: scale(1.03); border-color: var(--color-header); }
+        .badge-descuento { position: absolute; top: 10px; left: 10px; background: #ff5252; color: white; padding: 5px 10px; border-radius: 5px; font-weight: bold; font-size: 14px; z-index: 10; }
+        .img-sim { height: 120px; background: rgba(128,128,128,0.1); display: flex; align-items: center; justify-content: center; font-size: 50px; margin-bottom: 10px; border-radius: 8px; }
+        .nombre-p { font-weight: bold; font-size: 15px; margin-bottom: 10px; color: var(--color-texto); display: block; min-height: 40px; }
+        .precio-antes { color: #888; text-decoration: line-through; font-size: 14px; }
+        .precio-ahora { color: var(--color-boton); font-size: 22px; font-weight: bold; display: block; margin: 5px 0; }
+        .btn-oferta { background: var(--color-boton); color: #000; border: none; width: 100%; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 10px; transition: 0.2s; }
+        .btn-oferta:hover { opacity: 0.8; }
+
+        .sub-footer { text-align: center; padding: 20px; font-size: 13px; color: #888; margin-top: 40px; border-top: 1px solid var(--borde-tarjeta); }
+        .link-js { color: var(--color-secundario); cursor: pointer; text-decoration: underline; }
+    </style>
+    <script>
+        if (localStorage.getItem('temaEcofresh') === 'claro') document.documentElement.setAttribute('data-tema', 'claro');
+    </script>
+</head>
+<body>
+
+    <header>
+        <div class="header-top">
+            <a href="index.html" class="logo-container">
+                <img src="logo.jpg" alt="Logo EcoFresh" class="img-logo"> 
+                <span class="logo-texto">ECOFRESH</span>
+            </a>
+        </div>
+    </header>
+
+    <nav>
+        <div class="nav-content">
+            <a href="index.html">Inicio</a>
+            <a href="categoria.html">Categorías</a>
+            <a href="ofertas.html" style="background: rgba(255,255,255,0.2);">Ofertas</a>
+            <a href="vendido.html">Lo más vendido</a>
+            <a href="contacto.html">Contacto</a>
+            <a href="ajustes.html">Ajustes</a>
+            <a href="cuenta.html">Cuenta</a>
+            <a href="carrito.html">Carrito</a>
+        </div>
+    </nav>
+
+    <div class="banner-ofertas">
+        <h1>⚡ OFERTAS RELÁMPAGO ⚡</h1>
+        <p>Precios especiales para cuidar tu higiene y el medio ambiente.</p>
+        <div class="contador-oferta">Termina en: <span id="timer">02:59:59</span></div>
+    </div>
+
+    <main>
+        <div class="grid-ofertas" id="contenedor-ofertas"></div>
+    </main>
+
+    <div class="sub-footer">
+        <span class="link-js" onclick="crearVentana('privacidad')">Política de Privacidad</span> | 
+        <span class="link-js" onclick="crearVentana('condiciones')">Condiciones de Uso</span> | 
+        © 2026 Creado por 5to. Bachillerato IDCVH
+    </div>
+
+    <script>
+        const ofertas = [
+            {n: 'Jabón Corporal de Avena y Miel', antes: 35, ahora: 25, desc: '-28%', i: '🧼'},
+            {n: 'Shampoo Líquido a base de Sábila', antes: 55, ahora: 40, desc: '-27%', i: '🧴'},
+            {n: 'Desodorante Natural de Cítricos', antes: 45, ahora: 30, desc: '-33%', i: '🍊'},
+            {n: 'Detergente lavatrastes biodegradable', antes: 35, ahora: 25, desc: '-28%', i: '🍽️'},
+            {n: 'Cepillo de dientes de bambú', antes: 15, ahora: 9, desc: '-40%', i: '🎋'},
+            {n: 'Esponjas de fibra vegetal', antes: 15, ahora: 10, desc: '-33%', i: '🧽'}
+        ];
+
+        function cargarOfertas() {
+            const container = document.getElementById('contenedor-ofertas');
+            ofertas.forEach(o => {
+                container.innerHTML += `
+                    <div class="tarjeta-oferta">
+                        <div class="badge-descuento">${o.desc}</div>
+                        <div class="img-sim">${o.i}</div>
+                        <span class="nombre-p">${o.n}</span>
+                        <span class="precio-antes">Q${o.antes}.00</span>
+                        <span class="precio-ahora">Q${o.ahora}.00</span>
+                        <button class="btn-oferta" onclick="agregar('${o.n}', ${o.ahora})">¡Lo quiero!</button>
+                    </div>
+                `;
+            });
+        }
+
+        function agregar(nombre, precio) {
+            let carrito = JSON.parse(localStorage.getItem('miCarrito')) || [];
+            carrito.push({ nombre: nombre + " (OFERTA)", precio: precio });
+            localStorage.setItem('miCarrito', JSON.stringify(carrito));
+            alert('¡Oferta aprovechada! Se agregó al carrito.');
+        }
+
+        function startTimer() {
+            let duration = 3 * 60 * 60; 
+            let timerDisplay = document.getElementById('timer');
+            setInterval(() => {
+                let h = parseInt(duration / 3600, 10);
+                let m = parseInt((duration % 3600) / 60, 10);
+                let s = parseInt(duration % 60, 10);
+                timerDisplay.textContent = `${h < 10 ? "0"+h : h}:${m < 10 ? "0"+m : m}:${s < 10 ? "0"+s : s}`;
+                if (--duration < 0) duration = 3 * 60 * 60;
+            }, 1000);
+        }
+
+        function crearVentana(tipo) {
+            let vieja = document.getElementById("ventanaEco"); if(vieja) vieja.remove();
+            let fondo = document.createElement("div"); fondo.id = "ventanaEco"; fondo.style.position = "fixed"; fondo.style.top = "0"; fondo.style.left = "0"; fondo.style.width = "100%"; fondo.style.height = "100%"; fondo.style.backgroundColor = "rgba(0,0,0,0.8)"; fondo.style.display = "flex"; fondo.style.justifyContent = "center"; fondo.style.alignItems = "center"; fondo.style.zIndex = "9999";
+            let cuadro = document.createElement("div"); cuadro.style.backgroundColor = document.documentElement.getAttribute('data-tema') === 'claro' ? '#fff' : '#1e1e1e'; cuadro.style.color = document.documentElement.getAttribute('data-tema') === 'claro' ? '#111' : '#fff'; cuadro.style.padding = "20px"; cuadro.style.borderRadius = "10px"; cuadro.style.width = "85%"; cuadro.style.maxWidth = "500px"; cuadro.style.border = "2px solid #4caf50";
+            let titulo = document.createElement("h2"); titulo.style.color = "#4caf50"; titulo.style.marginTop = "0";
+            let parrafo = document.createElement("p"); parrafo.style.lineHeight = "1.6";
+            if(tipo === 'condiciones') { titulo.innerText = "Condiciones de Uso"; parrafo.innerHTML = "Sitio creado por 5to Baco IDCVH. Todas las ofertas y descuentos son simulaciones académicas."; } 
+            else { titulo.innerText = "Política de Privacidad"; parrafo.innerHTML = "Todo funciona de manera local."; }
+            let boton = document.createElement("button"); boton.innerText = "Entendido"; boton.style.backgroundColor = "#ffc107"; boton.style.color = "#000"; boton.style.border = "none"; boton.style.padding = "10px 20px"; boton.style.borderRadius = "5px"; boton.style.fontWeight = "bold"; boton.style.cursor = "pointer"; boton.style.marginTop = "15px";
+            boton.onclick = function() { fondo.remove(); };
+            cuadro.appendChild(titulo); cuadro.appendChild(parrafo); cuadro.appendChild(boton); fondo.appendChild(cuadro); document.body.appendChild(fondo);
+        }
+
+        window.onload = () => { cargarOfertas(); startTimer(); };
+    </script>
+</body>
+</html>

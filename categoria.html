@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecofresh - Categorías Detalladas</title>
+    <style>
+        :root {
+            --fondo-sitio: #121212; --color-texto: #f3f3f3; --color-header: #4caf50;
+            --fondo-tarjeta: #1e1e1e; --borde-tarjeta: #333; --color-boton: #ffc107; --color-secundario: #29b6f6; --color-nav-texto: #000;
+        }
+        [data-tema="claro"] {
+            --fondo-sitio: #f3f3f3; --color-texto: #111; --color-header: #1a4a2e; 
+            --fondo-tarjeta: #fff; --borde-tarjeta: #ddd; --color-boton: #ffb300; --color-secundario: #03a9f4; --color-nav-texto: #fff;
+        }
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; background-color: var(--fondo-sitio); color: var(--color-texto); transition: 0.3s; }
+        
+        /* HEADER Y NAV UNIVERSAL */
+        header { background-color: var(--color-header); padding: 15px 20px; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        .header-top { display: flex; justify-content: center; align-items: center; max-width: 1300px; margin: 0 auto; flex-wrap: wrap; }
+        .logo-container { display: flex; align-items: center; text-decoration: none; }
+        .img-logo { height: 45px; margin-right: 12px; border-radius: 8px; background: white; padding: 2px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        .logo-texto { font-size: 28px; font-weight: bold; letter-spacing: 1px; color: #fff; text-transform: uppercase; }
+        
+        nav { background-color: var(--color-secundario); padding: 10px 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .nav-content { max-width: 1300px; margin: 0 auto; display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
+        .nav-content a { color: var(--color-nav-texto); text-decoration: none; font-size: 15px; font-weight: bold; padding: 5px 10px; border-radius: 5px; transition: 0.3s; }
+        .nav-content a:hover { background-color: rgba(255,255,255,0.3); }
+        
+        /* CUERPO CATEGORÍAS */
+        main { padding: 20px; max-width: 1200px; margin: 0 auto; }
+        .grid-seleccion { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 40px; }
+        .tarjeta-filtro { background: var(--fondo-tarjeta); padding: 15px; border-radius: 10px; text-align: center; cursor: pointer; border: 2px solid var(--borde-tarjeta); transition: 0.3s; font-weight: bold; }
+        .tarjeta-filtro:hover { border-color: var(--color-header); transform: translateY(-3px); }
+        .tarjeta-filtro.activa { border-color: var(--color-boton); background-color: rgba(76, 175, 80, 0.1); }
+
+        .grid-productos { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+        .producto { background: var(--fondo-tarjeta); padding: 15px; border-radius: 8px; border: 1px solid var(--borde-tarjeta); text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .precio { color: var(--color-boton); font-weight: bold; font-size: 20px; display: block; margin: 10px 0; }
+        .btn-add { background: var(--color-boton); color: #000; border: none; border-radius: 20px; padding: 8px; width: 100%; cursor: pointer; font-weight: bold; font-size: 14px; }
+        
+        .banner-categoria { background: linear-gradient(135deg, var(--color-header), var(--color-secundario)); color: white; padding: 30px; border-radius: 10px; margin-bottom: 20px; text-align: center; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
+        
+        .sub-footer { text-align: center; padding: 20px; font-size: 13px; color: #888; margin-top: 40px; border-top: 1px solid var(--borde-tarjeta); }
+        .link-js { color: var(--color-secundario); cursor: pointer; text-decoration: underline; }
+    </style>
+    <script>
+        if (localStorage.getItem('temaEcofresh') === 'claro') document.documentElement.setAttribute('data-tema', 'claro');
+    </script>
+</head>
+<body>
+
+    <header>
+        <div class="header-top">
+            <a href="index.html" class="logo-container">
+                <img src="logo.jpg" alt="Logo EcoFresh" class="img-logo"> 
+                <span class="logo-texto">ECOFRESH</span>
+            </a>
+        </div>
+    </header>
+
+    <nav>
+        <div class="nav-content">
+            <a href="index.html">Inicio</a>
+            <a href="categoria.html" style="background: rgba(255,255,255,0.2);">Categorías</a>
+            <a href="ofertas.html">Ofertas</a>
+            <a href="vendido.html">Lo más vendido</a>
+            <a href="contacto.html">Contacto</a>
+            <a href="ajustes.html">Ajustes</a>
+            <a href="cuenta.html">Cuenta</a>
+            <a href="carrito.html">Carrito</a>
+        </div>
+    </nav>
+
+    <main>
+        <div class="banner-categoria">
+            <h1 id="titulo-cat">Nuestras Categorías Ecológicas</h1>
+            <p>Selecciona una sección para ver los productos que cuidan de ti y del planeta.</p>
+        </div>
+
+        <div class="grid-seleccion">
+            <div class="tarjeta-filtro" onclick="filtrar('Cocina', this)">🍳<br>Cocina</div>
+            <div class="tarjeta-filtro" onclick="filtrar('Baño', this)">🚿<br>Baño</div>
+            <div class="tarjeta-filtro" onclick="filtrar('Pisos', this)">🧹<br>Pisos</div>
+            <div class="tarjeta-filtro" onclick="filtrar('Personal', this)">🧼<br>Higiene Personal</div>
+            <div class="tarjeta-filtro" onclick="filtrar('Lavandería', this)">🧺<br>Lavandería</div>
+        </div>
+
+        <div class="grid-productos" id="contenedor-productos"></div>
+    </main>
+
+    <div class="sub-footer">
+        <span class="link-js" onclick="crearVentana('privacidad')">Política de Privacidad</span> | 
+        <span class="link-js" onclick="crearVentana('condiciones')">Condiciones de Uso</span> | 
+        © 2026 Creado por 5to. Bachillerato IDCVH
+    </div>
+
+    <script>
+        const productosData = {
+            'Cocina': [ {n: 'Detergente lavatrastes biodegradable', p: 35}, {n: 'Esponjas de fibra vegetal', p: 15}, {n: 'Escobas de cerdas naturales', p: 45}, {n: 'Desengrasante botánico', p: 40}, {n: 'Vinagre blanco limpieza', p: 18} ],
+            'Baño': [ {n: 'Limpiador inodoros biodegradable', p: 38}, {n: 'Pastilla desinfectante natural', p: 15}, {n: 'Cepillo inodoro bambú', p: 40}, {n: 'Aceites esenciales aromatizar', p: 45} ],
+            'Pisos': [ {n: 'Jabón de potasa cerámica', p: 45}, {n: 'Cera de abejas madera', p: 75}, {n: 'Limpiador jabón de coco', p: 40}, {n: 'Escoba fibra de coco', p: 40} ],
+            'Personal': [
+                {n: 'Jabón Corporal de Avena y Miel', p: 25},
+                {n: 'Shampoo Líquido a base de Sábila', p: 45},
+                {n: 'Desodorante Natural de Cítricos', p: 35},
+                {n: 'Cepillo de dientes bambú', p: 15},
+                {n: 'Pasta dientes tabletas', p: 40},
+                {n: 'Discos desmaquillantes reutilizables', p: 30}
+            ],
+            'Lavandería': [ {n: 'Detergente líquido granel', p: 80}, {n: 'Nueces de lavado natural', p: 50}, {n: 'Vinagre suavizante natural', p: 15}, {n: 'Bolas de lana secadora', p: 45} ]
+        };
+
+        function filtrar(categoria, elemento) {
+            document.querySelectorAll('.tarjeta-filtro').forEach(t => t.classList.remove('activa'));
+            elemento.classList.add('activa');
+            document.getElementById('titulo-cat').innerText = "Categoría: " + categoria;
+            const contenedor = document.getElementById('contenedor-productos');
+            contenedor.innerHTML = ""; 
+            productosData[categoria].forEach(prod => {
+                contenedor.innerHTML += `
+                    <div class="producto">
+                        <div style="height:100px; background:rgba(128,128,128,0.1); margin-bottom:10px; display:flex; align-items:center; justify-content:center; border-radius:5px; font-size: 30px;">🌿</div>
+                        <strong style="display:block; min-height: 40px;">${prod.n}</strong>
+                        <span class="precio">Q${prod.p}.00</span>
+                        <button class="btn-add" onclick="agregarAlCarrito('${prod.n}', ${prod.p})">Agregar al carrito</button>
+                    </div>
+                `;
+            });
+        }
+
+        function agregarAlCarrito(nombre, precio) {
+            let carrito = JSON.parse(localStorage.getItem('miCarrito')) || [];
+            carrito.push({ nombre: nombre, precio: precio });
+            localStorage.setItem('miCarrito', JSON.stringify(carrito));
+            alert('¡' + nombre + ' agregado al carrito!');
+        }
+
+        function crearVentana(tipo) {
+            let vieja = document.getElementById("ventanaEco"); if(vieja) vieja.remove();
+            let fondo = document.createElement("div"); fondo.id = "ventanaEco"; fondo.style.position = "fixed"; fondo.style.top = "0"; fondo.style.left = "0"; fondo.style.width = "100%"; fondo.style.height = "100%"; fondo.style.backgroundColor = "rgba(0,0,0,0.8)"; fondo.style.display = "flex"; fondo.style.justifyContent = "center"; fondo.style.alignItems = "center"; fondo.style.zIndex = "9999";
+            let cuadro = document.createElement("div"); cuadro.style.backgroundColor = document.documentElement.getAttribute('data-tema') === 'claro' ? '#fff' : '#1e1e1e'; cuadro.style.color = document.documentElement.getAttribute('data-tema') === 'claro' ? '#111' : '#fff'; cuadro.style.padding = "20px"; cuadro.style.borderRadius = "10px"; cuadro.style.width = "85%"; cuadro.style.maxWidth = "500px"; cuadro.style.border = "2px solid #4caf50";
+            let titulo = document.createElement("h2"); titulo.style.color = "#4caf50"; titulo.style.marginTop = "0";
+            let parrafo = document.createElement("p"); parrafo.style.lineHeight = "1.6";
+            if(tipo === 'condiciones') { titulo.innerText = "Condiciones de Uso"; parrafo.innerHTML = "Sitio creado por 5to Baco IDCVH. Todos los productos mostrados son con fines académicos."; } 
+            else { titulo.innerText = "Política de Privacidad"; parrafo.innerHTML = "Ningún dato de tu navegación es compartido con terceros."; }
+            let boton = document.createElement("button"); boton.innerText = "Entendido"; boton.style.backgroundColor = "#ffc107"; boton.style.color = "#000"; boton.style.border = "none"; boton.style.padding = "10px 20px"; boton.style.borderRadius = "5px"; boton.style.fontWeight = "bold"; boton.style.cursor = "pointer"; boton.style.marginTop = "15px";
+            boton.onclick = function() { fondo.remove(); };
+            cuadro.appendChild(titulo); cuadro.appendChild(parrafo); cuadro.appendChild(boton); fondo.appendChild(cuadro); document.body.appendChild(fondo);
+        }
+
+        window.onload = () => filtrar('Personal', document.querySelectorAll('.tarjeta-filtro')[3]);
+    </script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecofresh - Los Más Vendidos</title>
+    <style>
+        :root {
+            --fondo-sitio: #121212; --color-texto: #f3f3f3; --color-header: #4caf50; 
+            --fondo-tarjeta: #1e1e1e; --borde-tarjeta: #333; --color-boton: #ffc107; --color-secundario: #29b6f6; --color-nav-texto: #000;
+        }
+        [data-tema="claro"] {
+            --fondo-sitio: #f3f3f3; --color-texto: #111; --color-header: #1a4a2e; 
+            --fondo-tarjeta: #fff; --borde-tarjeta: #ddd; --color-boton: #ffb300; --color-secundario: #03a9f4; --color-nav-texto: #fff;
+        }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; background-color: var(--fondo-sitio); color: var(--color-texto); transition: 0.3s;}
+        
+        /* HEADER Y NAV UNIVERSAL */
+        header { background-color: var(--color-header); padding: 15px 20px; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        .header-top { display: flex; justify-content: center; align-items: center; max-width: 1300px; margin: 0 auto; flex-wrap: wrap; }
+        .logo-container { display: flex; align-items: center; text-decoration: none; }
+        .img-logo { height: 45px; margin-right: 12px; border-radius: 8px; background: white; padding: 2px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        .logo-texto { font-size: 28px; font-weight: bold; letter-spacing: 1px; color: #fff; text-transform: uppercase; }
+        
+        nav { background-color: var(--color-secundario); padding: 10px 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .nav-content { max-width: 1300px; margin: 0 auto; display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
+        .nav-content a { color: var(--color-nav-texto); text-decoration: none; font-size: 15px; font-weight: bold; padding: 5px 10px; border-radius: 5px; transition: 0.3s; }
+        .nav-content a:hover { background-color: rgba(255,255,255,0.3); }
+
+        /* CUERPO VENDIDO */
+        .encabezado-top { background-color: var(--fondo-tarjeta); padding: 30px 20px; border-bottom: 1px solid var(--borde-tarjeta); margin-bottom: 20px; }
+        .encabezado-top h1 { color: var(--color-secundario); margin-top: 0; }
+        
+        main { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .grid-vendidos { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 25px; }
+        .tarjeta-best { background: var(--fondo-tarjeta); border-radius: 8px; padding: 20px; position: relative; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border: 1px solid var(--borde-tarjeta); transition: 0.3s; }
+        .tarjeta-best:hover { transform: translateY(-5px); border-color: var(--color-header); }
+        .badge-best { position: absolute; top: 0; left: 0; background: var(--color-secundario); color: #000; padding: 5px 12px; font-size: 13px; font-weight: bold; border-radius: 8px 0 8px 0; }
+        .img-sim { height: 150px; background: rgba(128,128,128,0.1); display: flex; align-items: center; justify-content: center; font-size: 60px; margin-bottom: 15px; border-radius: 8px; }
+        .rank { color: #888; font-size: 13px; font-weight: bold; }
+        .nombre-p { font-size: 16px; font-weight: bold; color: var(--color-texto); margin: 10px 0; display: block; min-height: 40px; }
+        .estrellas { color: var(--color-boton); font-size: 18px; margin-bottom: 5px; }
+        .ventas-count { color: #888; font-size: 12px; margin-left: 5px; }
+        .precio { font-size: 22px; font-weight: bold; color: var(--color-secundario); margin-bottom: 15px; display: block; }
+        .btn-compra { background: var(--color-boton); color: #000; border: none; border-radius: 20px; width: 100%; padding: 10px; cursor: pointer; font-weight: bold; transition: 0.2s; }
+        .btn-compra:hover { opacity: 0.8; }
+
+        .sub-footer { text-align: center; padding: 20px; font-size: 13px; color: #888; margin-top: 40px; border-top: 1px solid var(--borde-tarjeta); }
+        .link-js { color: var(--color-secundario); cursor: pointer; text-decoration: underline; }
+    </style>
+    <script>
+        if (localStorage.getItem('temaEcofresh') === 'claro') document.documentElement.setAttribute('data-tema', 'claro');
+    </script>
+</head>
+<body>
+
+    <header>
+        <div class="header-top">
+            <a href="index.html" class="logo-container">
+                <img src="logo.jpg" alt="Logo EcoFresh" class="img-logo"> 
+                <span class="logo-texto">ECOFRESH</span>
+            </a>
+        </div>
+    </header>
+
+    <nav>
+        <div class="nav-content">
+            <a href="index.html">Inicio</a>
+            <a href="categoria.html">Categorías</a>
+            <a href="ofertas.html">Ofertas</a>
+            <a href="vendido.html" style="background: rgba(255,255,255,0.2);">Lo más vendido</a>
+            <a href="contacto.html">Contacto</a>
+            <a href="ajustes.html">Ajustes</a>
+            <a href="cuenta.html">Cuenta</a>
+            <a href="carrito.html">Carrito</a>
+        </div>
+    </nav>
+
+    <div class="encabezado-top">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <h1>Los más vendidos en Ecofresh</h1>
+            <p>Nuestros productos estrella, preferidos por nuestros clientes.</p>
+        </div>
+    </div>
+
+    <main>
+        <div class="grid-vendidos" id="contenedor-vendidos"></div>
+    </main>
+
+    <div class="sub-footer">
+        <span class="link-js" onclick="crearVentana('privacidad')">Política de Privacidad</span> | 
+        <span class="link-js" onclick="crearVentana('condiciones')">Condiciones de Uso</span> | 
+        © 2026 Creado por 5to. Bachillerato IDCVH
+    </div>
+
+    <script>
+        const masVendidos = [
+            {n: 'Jabón Corporal de Avena y Miel', p: 25, i: '🧼', r: '4.9', v: '15,403', top: 1},
+            {n: 'Shampoo Líquido a base de Sábila', p: 45, i: '🧴', r: '4.8', v: '12,150', top: 2},
+            {n: 'Desodorante Natural de Cítricos', p: 35, i: '🍊', r: '4.8', v: '9,900', top: 3},
+            {n: 'Detergente lavatrastes biodegradable', p: 35, i: '🍽️', r: '4.7', v: '8,230', top: 4},
+            {n: 'Cepillo de dientes de bambú', p: 15, i: '🎋', r: '4.5', v: '6,800', top: 5},
+            {n: 'Cera de abejas natural (Pisos)', p: 75, i: '🐝', r: '4.6', v: '4,100', top: 6}
+        ];
+
+        function cargarVendidos() {
+            const container = document.getElementById('contenedor-vendidos');
+            masVendidos.forEach(p => {
+                container.innerHTML += `
+                    <div class="tarjeta-best">
+                        <div class="badge-best">nº ${p.top} más vendido</div>
+                        <div class="img-sim">${p.i}</div>
+                        <span class="rank">Ranking de popularidad</span>
+                        <span class="nombre-p">${p.n}</span>
+                        <div class="estrellas">
+                            ${'★'.repeat(Math.floor(p.r))}<span style="color:#666">★</span>
+                            <span class="ventas-count">${p.v} vendidos</span>
+                        </div>
+                        <span class="precio">Q${p.p}.00</span>
+                        <button class="btn-compra" onclick="agregar('${p.n}', ${p.p})">Agregar al carrito</button>
+                    </div>
+                `;
+            });
+        }
+
+        function agregar(nombre, precio) {
+            let carrito = JSON.parse(localStorage.getItem('miCarrito')) || [];
+            carrito.push({ nombre: nombre, precio: precio });
+            localStorage.setItem('miCarrito', JSON.stringify(carrito));
+            alert('¡' + nombre + ' se agregó a tu carrito!');
+        }
+
+        function crearVentana(tipo) {
+            let vieja = document.getElementById("ventanaEco"); if(vieja) vieja.remove();
+            let fondo = document.createElement("div"); fondo.id = "ventanaEco"; fondo.style.position = "fixed"; fondo.style.top = "0"; fondo.style.left = "0"; fondo.style.width = "100%"; fondo.style.height = "100%"; fondo.style.backgroundColor = "rgba(0,0,0,0.8)"; fondo.style.display = "flex"; fondo.style.justifyContent = "center"; fondo.style.alignItems = "center"; fondo.style.zIndex = "9999";
+            let cuadro = document.createElement("div"); cuadro.style.backgroundColor = document.documentElement.getAttribute('data-tema') === 'claro' ? '#fff' : '#1e1e1e'; cuadro.style.color = document.documentElement.getAttribute('data-tema') === 'claro' ? '#111' : '#fff'; cuadro.style.padding = "20px"; cuadro.style.borderRadius = "10px"; cuadro.style.width = "85%"; cuadro.style.maxWidth = "500px"; cuadro.style.border = "2px solid #4caf50";
+            let titulo = document.createElement("h2"); titulo.style.color = "#4caf50"; titulo.style.marginTop = "0";
+            let parrafo = document.createElement("p"); parrafo.style.lineHeight = "1.6";
+            if(tipo === 'condiciones') { titulo.innerText = "Condiciones de Uso"; parrafo.innerHTML = "Sitio creado por 5to Baco IDCVH. Las estadísticas de ventas son simuladas para cumplir con los requerimientos del proyecto integrador."; } 
+            else { titulo.innerText = "Política de Privacidad"; parrafo.innerHTML = "Tu actividad dentro de esta página es completamente privada y no se almacena en ninguna base de datos real."; }
+            let boton = document.createElement("button"); boton.innerText = "Entendido"; boton.style.backgroundColor = "#ffc107"; boton.style.color = "#000"; boton.style.border = "none"; boton.style.padding = "10px 20px"; boton.style.borderRadius = "5px"; boton.style.fontWeight = "bold"; boton.style.cursor = "pointer"; boton.style.marginTop = "15px";
+            boton.onclick = function() { fondo.remove(); };
+            cuadro.appendChild(titulo); cuadro.appendChild(parrafo); cuadro.appendChild(boton); fondo.appendChild(cuadro); document.body.appendChild(fondo);
+        }
+
+        window.onload = cargarVendidos;
+    </script>
+</body>
+</html>

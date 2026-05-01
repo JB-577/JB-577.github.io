@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecofresh - Tienda Oficial</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: #f3f3f3; }
+        
+        /* Barra superior estilo corporativo */
+        header { background-color: #1a4a2e; color: white; padding: 10px 20px; position: sticky; top: 0; z-index: 1000; }
+        .header-top { display: flex; justify-content: space-between; align-items: center; max-width: 1300px; margin: 0 auto; }
+        .logo { font-size: 28px; font-weight: bold; letter-spacing: 1px; color: #fff; text-decoration: none; }
+        
+        /* Buscador simulado */
+        .search-bar { flex-grow: 0.6; display: flex; }
+        .search-bar input { width: 100%; padding: 8px; border-radius: 4px 0 0 4px; border: none; }
+        .search-bar button { padding: 8px 15px; background: #0f99f5; border: none; border-radius: 0 4px 4px 0; cursor: pointer; }
+
+        /* Navegación */
+        nav { background-color: #232f3e; padding: 10px 20px; }
+        .nav-content { max-width: 1300px; margin: 0 auto; display: flex; gap: 20px; }
+        .nav-content a { color: white; text-decoration: none; font-size: 14px; opacity: 0.9; }
+        .nav-content a:hover { opacity: 1; border: 1px solid white; padding: 0 5px; margin: 0 -6px; }
+
+        .carrito-btn { background: #3395e6; color: rgb(253, 253, 253); padding: 8px 15px; border-radius: 4px; font-weight: bold; text-decoration: none; transition: 0.3s; }
+
+        /* Cuerpo */
+        main { max-width: 1300px; margin: 20px auto; padding: 0 20px; }
+        .hero-banner { background: linear-gradient(to right, #0984f7, #0544b9); color: white; padding: 40px; border-radius: 8px; margin-bottom: 30px; text-align: center; }
+
+        /* Grid de productos */
+        .grid-productos { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
+        .producto-card { background: white; border: 1px solid #ddd; padding: 15px; display: flex; flex-direction: column; justify-content: space-between; transition: 0.3s; border-radius: 4px; }
+        .producto-card:hover { box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .img-sim { height: 140px; background: #f8f8f8; display: flex; align-items: center; justify-content: center; font-size: 40px; margin-bottom: 10px; border-radius: 4px; }
+        .p-name { font-size: 14px; font-weight: 500; height: 40px; overflow: hidden; margin-bottom: 10px; color: #007185; }
+        .p-price { font-size: 20px; font-weight: bold; color: #333; margin-bottom: 15px; }
+        .btn-add { background: #2bc3f1; border: 1px solid #35bddf; border-radius: 20px; padding: 8px; cursor: pointer; font-weight: bold; font-size: 13px; }
+        .btn-add:hover { background: #06a4ff; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-top">
+            <a href="index.html" class="logo">ECOFRESH</a>
+            <div class="search-bar">
+                <input type="text" placeholder="Buscar productos biodegradables...">
+                <button>🔍</button>
+            </div>
+            <a href="carrito.html" class="carrito-btn">🛒 Carrito: <span id="count">0</span></a>
+        </div>
+    </header>
+
+    <nav>
+        <div class="nav-content">
+            <a href="index.html">Inicio</a>
+            <a href="categoria.html">Categorías</a>
+            <a href="ofertas.html">Ofertas</a>
+            <a href="vendido.html">Lo más vendido</a>
+            <a href="contacto.html">Contacto</a>
+            <a href="ajustes.html">Ajustes</a>
+            <a href="cuenta.html">Cuenta</a>
+        </div>
+    </nav>
+
+    <main>
+        <div class="hero-banner">
+            <h1>Cuidado Sostenible para tu Hogar</h1>
+            <p>Productos 100% biodegradables y libres de plásticos.</p>
+        </div>
+
+        <div class="grid-productos" id="grid">
+            <!-- Los 50 productos se cargarán aquí automáticamente -->
+        </div>
+    </main>
+
+    <script>
+        const productosTotales = [
+            // Cocina
+            {n: 'Detergente lavatrastes biodegradable', p: 35, i: '🧼'},
+            {n: 'Esponjas de fibra vegetal', p: 15, i: '🧽'},
+            {n: 'Escobas de cerdas naturales', p: 45, i: '🧹'},
+            {n: 'Desengrasante botánico', p: 40, i: '🧴'},
+            {n: 'Paños de algodón orgánico', p: 25, i: '🧵'},
+            {n: 'Bicarbonato de sodio a granel', p: 20, i: '⚪'},
+            {n: 'Vinagre blanco de limpieza', p: 18, i: '🍶'},
+            {n: 'Jabón de castilla natural', p: 55, i: '🧼'},
+            {n: 'Cepillos de madera natural', p: 22, i: '🪥'},
+            {n: 'Jabón en barra sólido cocina', p: 12, i: '🧊'},
+            // Baño
+            {n: 'Limpiador de inodoros bio', p: 38, i: '🚽'},
+            {n: 'Pastilla desinfectante natural', p: 15, i: '🔵'},
+            {n: 'Desincrustante ácido cítrico', p: 30, i: '🍋'},
+            {n: 'Limpiador de azulejos eco', p: 35, i: '✨'},
+            {n: 'Esponjas de lufa natural', p: 18, i: '🛁'},
+            {n: 'Cepillo inodoro de bambú', p: 40, i: '🎋'},
+            {n: 'Paños de microfibra reciclada', p: 20, i: '🧤'},
+            {n: 'Aceites esenciales puros', p: 45, i: '🌿'},
+            {n: 'Vinagre para mamparas', p: 22, i: '🚿'},
+            // Pisos
+            {n: 'Jabón de potasa cerámica', p: 45, i: '🧱'},
+            {n: 'Limpiador jabón de coco', p: 40, i: '🥥'},
+            {n: 'Fregona algodón orgánico', p: 60, i: '🧹'},
+            {n: 'Cera de abejas madera', p: 75, i: '🐝'},
+            {n: 'Jabón negro multiusos', p: 50, i: '🧴'},
+            {n: 'Aceite de linaza madera', p: 65, i: '🪵'},
+            {n: 'Cubo materiales reciclados', p: 85, i: '🪣'},
+            {n: 'Escoba fibra de coco', p: 40, i: '🌴'},
+            {n: 'Bayetas fibras naturales', p: 15, i: '📄'},
+            {n: 'Infusión romero natural', p: 10, i: '🍃'},
+            // Personal
+            {n: 'Champú sólido en pastilla', p: 55, i: '🧼'},
+            {n: 'Acondicionador sin plástico', p: 60, i: '🧴'},
+            {n: 'Jabón corporal artesanal', p: 25, i: '🧼'},
+            {n: 'Desodorante crema vidrio', p: 45, i: '🧴'},
+            {n: 'Pasta dientes tabletas', p: 40, i: '🦷'},
+            {n: 'Cepillo de dientes bambú', p: 15, i: '🎋'},
+            {n: 'Hilo dental compostable', p: 20, i: '🧵'},
+            {n: 'Esponjas marinas naturales', p: 35, i: '🌊'},
+            {n: 'Discos desmaquillantes eco', p: 30, i: '⚪'},
+            {n: 'Crema manteca de karité', p: 70, i: '🥥'},
+            // Lavandería
+            {n: 'Detergente líquido granel', p: 80, i: '🧺'},
+            {n: 'Nueces de lavado natural', p: 50, i: '🥜'},
+            {n: 'Percarbonato blanqueador', p: 35, i: '✨'},
+            {n: 'Vinagre suavizante natural', p: 15, i: '🌸'},
+            {n: 'Bolas de lana secadora', p: 45, i: '🧶'},
+            {n: 'Cepillo manchas madera', p: 25, i: '🪥'},
+            {n: 'Bolsas lavado algodón', p: 30, i: '🛍️'},
+            {n: 'Jabón de pan manchas', p: 12, i: '🧼'},
+            {n: 'Cesto de mimbre natural', p: 120, i: '🧺'},
+            {n: 'Perchas madera reciclada', p: 40, i: '🧥'}
+        ];
+
+        // Función para mezclar los productos (Shuffle)
+        function mezclar(array) {
+            return array.sort(() => Math.random() - 0.5);
+        }
+
+        function cargarProductos() {
+            const grid = document.getElementById('grid');
+            const listaMezclada = mezclar([...productosTotales]);
+            
+            listaMezclada.forEach(p => {
+                grid.innerHTML += `
+                    <div class="producto-card">
+                        <div class="img-sim">${p.i}</div>
+                        <div class="p-name">${p.n}</div>
+                        <div class="p-price">Q${p.p}.00</div>
+                        <button class="btn-add" onclick="agregar('${p.n}', ${p.p})">Agregar al carrito</button>
+                    </div>
+                `;
+            });
+            actualizarContador();
+        }
+
+        function agregar(nombre, precio) {
+            let carrito = JSON.parse(localStorage.getItem('miCarrito')) || [];
+            carrito.push({ nombre: nombre, precio: precio });
+            localStorage.setItem('miCarrito', JSON.stringify(carrito));
+            actualizarContador();
+            alert('Agregado: ' + nombre);
+        }
+
+        function actualizarContador() {
+            let carrito = JSON.parse(localStorage.getItem('miCarrito')) || [];
+            document.getElementById('count').innerText = carrito.length;
+        }
+
+        window.onload = cargarProductos;
+    </script>
+</body>
+</html>

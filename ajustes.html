@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecofresh - Configuración</title>
+    <style>
+        :root {
+            --fondo-sitio: #121212; --color-texto: #f3f3f3; --color-header: #4caf50; 
+            --color-secundario: #29b6f6; --color-nav-texto: #000;
+            --fondo-tarjeta: #1e1e1e; --borde-tarjeta: #333;
+        }
+        [data-tema="claro"] {
+            --fondo-sitio: #f3f3f3; --color-texto: #111; --color-header: #1a4a2e; 
+            --color-secundario: #03a9f4; --color-nav-texto: #fff;
+            --fondo-tarjeta: #fff; --borde-tarjeta: #ddd;
+        }
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; background-color: var(--fondo-sitio); color: var(--color-texto); transition: 0.3s;}
+        
+        /* HEADER Y NAV UNIVERSAL */
+        header { background-color: var(--color-header); padding: 15px 20px; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        .header-top { display: flex; justify-content: center; align-items: center; max-width: 1300px; margin: 0 auto; flex-wrap: wrap; }
+        .logo-container { display: flex; align-items: center; text-decoration: none; }
+        .img-logo { height: 45px; margin-right: 12px; border-radius: 8px; background: white; padding: 2px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        .logo-texto { font-size: 28px; font-weight: bold; letter-spacing: 1px; color: #fff; text-transform: uppercase; }
+        
+        nav { background-color: var(--color-secundario); padding: 10px 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .nav-content { max-width: 1300px; margin: 0 auto; display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
+        .nav-content a { color: var(--color-nav-texto); text-decoration: none; font-size: 15px; font-weight: bold; padding: 5px 10px; border-radius: 5px; transition: 0.3s; }
+        .nav-content a:hover { background-color: rgba(255,255,255,0.3); }
+
+        /* CUERPO AJUSTES */
+        .menu-container { max-width: 600px; margin: 40px auto; border: 1px solid var(--borde-tarjeta); background: var(--fondo-tarjeta); border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1);}
+        .section-header { background-color: rgba(128,128,128,0.1); padding: 15px 20px; border-bottom: 1px solid var(--borde-tarjeta); }
+        .section-header h3 { margin: 0; font-size: 16px; text-transform: uppercase; color: var(--color-texto); }
+        .menu-item { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; color: var(--color-texto); font-size: 15px; border-bottom: 1px solid var(--borde-tarjeta); cursor: pointer; }
+        .menu-item:hover { background-color: rgba(128,128,128,0.05); }
+        .config-row { display: flex; align-items: center; padding: 15px 20px; gap: 15px; border-bottom: 1px solid var(--borde-tarjeta); cursor: pointer; }
+    </style>
+    <script>
+        if (localStorage.getItem('temaEcofresh') === 'claro') document.documentElement.setAttribute('data-tema', 'claro');
+    </script>
+</head>
+<body>
+
+    <header>
+        <div class="header-top">
+            <a href="index.html" class="logo-container">
+                <img src="logo.jpg" alt="Logo EcoFresh" class="img-logo"> 
+                <span class="logo-texto">ECOFRESH</span>
+            </a>
+        </div>
+    </header>
+
+    <nav>
+        <div class="nav-content">
+            <a href="index.html">Inicio</a>
+            <a href="categoria.html">Categorías</a>
+            <a href="ofertas.html">Ofertas</a>
+            <a href="vendido.html">Lo más vendido</a>
+            <a href="contacto.html">Contacto</a>
+            <a href="ajustes.html">Ajustes</a>
+            <a href="cuenta.html">Cuenta</a>
+            <a href="carrito.html">Carrito</a>
+        </div>
+    </nav>
+
+    <div class="menu-container">
+        <div class="section-header"><h3>Apariencia</h3></div>
+        <div class="config-row" onclick="cambiarTema()">
+            🌗 <span><strong>Modo de color:</strong> <span id="textoTema">Oscuro</span> (Clic para cambiar)</span>
+        </div>
+
+        <div class="section-header"><h3>Preferencias</h3></div>
+        <div class="config-row">🌐 <span><strong>Idioma:</strong> Español</span></div>
+        <div class="config-row">🇬🇹 <span><strong>País/Región:</strong> Guatemala</span></div>
+
+        <div class="section-header"><h3>Legal y Políticas</h3></div>
+        <div class="menu-item" onclick="crearVentana('condiciones')">
+            <span>Condiciones de Uso</span> <span style="color: var(--color-secundario); font-weight: bold;">></span>
+        </div>
+        <div class="menu-item" onclick="crearVentana('privacidad')">
+            <span>Aviso de Privacidad</span> <span style="color: var(--color-secundario); font-weight: bold;">></span>
+        </div>
+    </div>
+
+    <script>
+        window.onload = () => { document.getElementById('textoTema').innerText = localStorage.getItem('temaEcofresh') === 'claro' ? 'Claro' : 'Oscuro'; };
+
+        function cambiarTema() {
+            let nuevoTema = document.documentElement.getAttribute('data-tema') === 'claro' ? 'oscuro' : 'claro';
+            document.documentElement.setAttribute('data-tema', nuevoTema);
+            localStorage.setItem('temaEcofresh', nuevoTema);
+            document.getElementById('textoTema').innerText = nuevoTema === 'claro' ? 'Claro' : 'Oscuro';
+        }
+
+        function crearVentana(tipo) {
+            let vieja = document.getElementById("ventanaEco"); if(vieja) vieja.remove();
+            let fondo = document.createElement("div"); fondo.id = "ventanaEco"; fondo.style.position = "fixed"; fondo.style.top = "0"; fondo.style.left = "0"; fondo.style.width = "100%"; fondo.style.height = "100%"; fondo.style.backgroundColor = "rgba(0,0,0,0.8)"; fondo.style.display = "flex"; fondo.style.justifyContent = "center"; fondo.style.alignItems = "center"; fondo.style.zIndex = "9999";
+            let cuadro = document.createElement("div"); cuadro.style.backgroundColor = document.documentElement.getAttribute('data-tema') === 'claro' ? '#fff' : '#1e1e1e'; cuadro.style.color = document.documentElement.getAttribute('data-tema') === 'claro' ? '#111' : '#fff'; cuadro.style.padding = "20px"; cuadro.style.borderRadius = "10px"; cuadro.style.width = "85%"; cuadro.style.maxWidth = "500px"; cuadro.style.border = "2px solid #4caf50";
+            let titulo = document.createElement("h2"); titulo.style.color = "#4caf50"; titulo.style.marginTop = "0";
+            let parrafo = document.createElement("p"); parrafo.style.lineHeight = "1.6";
+            if(tipo === 'condiciones') { titulo.innerText = "Condiciones de Uso"; parrafo.innerHTML = "Proyecto desarrollado por 5to Baco del IDCVH."; } 
+            else { titulo.innerText = "Política de Privacidad"; parrafo.innerHTML = "Tus configuraciones (como el tema de color) se guardan solo en tu navegador web."; }
+            let boton = document.createElement("button"); boton.innerText = "Entendido"; boton.style.backgroundColor = "#ffc107"; boton.style.color = "#000"; boton.style.border = "none"; boton.style.padding = "10px 20px"; boton.style.borderRadius = "5px"; boton.style.fontWeight = "bold"; boton.style.cursor = "pointer"; boton.style.marginTop = "15px";
+            boton.onclick = function() { fondo.remove(); };
+            cuadro.appendChild(titulo); cuadro.appendChild(parrafo); cuadro.appendChild(boton); fondo.appendChild(cuadro); document.body.appendChild(fondo);
+        }
+    </script>
+</body>
+</html>

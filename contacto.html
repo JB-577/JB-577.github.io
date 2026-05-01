@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecofresh - Contacto</title>
+    <style>
+        :root {
+            --fondo-sitio: #121212; --color-texto: #f3f3f3; --color-header: #4caf50; 
+            --color-secundario: #29b6f6; --color-nav-texto: #000;
+            --fondo-tarjeta: #1e1e1e; --borde-tarjeta: #333;
+        }
+        [data-tema="claro"] {
+            --fondo-sitio: #f3f3f3; --color-texto: #111; --color-header: #1a4a2e; 
+            --color-secundario: #03a9f4; --color-nav-texto: #fff;
+            --fondo-tarjeta: #fff; --borde-tarjeta: #ddd;
+        }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; background-color: var(--fondo-sitio); color: var(--color-texto); }
+        
+        /* HEADER Y NAV UNIVERSAL */
+        header { background-color: var(--color-header); padding: 15px 20px; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        .header-top { display: flex; justify-content: center; align-items: center; max-width: 1300px; margin: 0 auto; flex-wrap: wrap; }
+        .logo-container { display: flex; align-items: center; text-decoration: none; }
+        .img-logo { height: 45px; margin-right: 12px; border-radius: 8px; background: white; padding: 2px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        .logo-texto { font-size: 28px; font-weight: bold; letter-spacing: 1px; color: #fff; text-transform: uppercase; }
+        
+        nav { background-color: var(--color-secundario); padding: 10px 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .nav-content { max-width: 1300px; margin: 0 auto; display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
+        .nav-content a { color: var(--color-nav-texto); text-decoration: none; font-size: 15px; font-weight: bold; padding: 5px 10px; border-radius: 5px; transition: 0.3s; }
+        .nav-content a:hover { background-color: rgba(255,255,255,0.3); }
+
+        /* SECCIONES CONTACTO */
+        .banner-contacto { background-color: var(--fondo-tarjeta); padding: 40px 20px; text-align: center; border-bottom: 1px solid var(--borde-tarjeta); }
+        .banner-contacto h2 { color: var(--color-secundario); font-size: 28px; margin: 0; }
+
+        .por-que-nosotros { background-color: #cddc39; padding: 60px 20px; text-align: center; color: #111;}
+        .por-que-nosotros h2 { color: #111; font-size: 32px; margin-bottom: 40px; text-transform: uppercase; }
+        .grid-beneficios { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; }
+        .beneficio-item h3 { font-size: 18px; margin-bottom: 10px; }
+        
+        footer { background-color: var(--fondo-tarjeta); border-top: 1px solid var(--borde-tarjeta); padding: 60px 20px; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; max-width: 1200px; margin: 0 auto; }
+        .sub-footer { background-color: var(--color-secundario); color: #fff; padding: 15px; text-align: center; font-size: 13px; font-weight: bold; }
+        .link-js { cursor: pointer; text-decoration: underline; color: #111; }
+    </style>
+    <script>
+        if (localStorage.getItem('temaEcofresh') === 'claro') document.documentElement.setAttribute('data-tema', 'claro');
+    </script>
+</head>
+<body>
+    <header>
+        <div class="header-top">
+            <a href="index.html" class="logo-container">
+                <img src="logo.jpg" alt="Logo EcoFresh" class="img-logo"> 
+                <span class="logo-texto">ECOFRESH</span>
+            </a>
+        </div>
+    </header>
+
+    <nav>
+        <div class="nav-content">
+            <a href="index.html">Inicio</a>
+            <a href="categoria.html">Categorías</a>
+            <a href="ofertas.html">Ofertas</a>
+            <a href="vendido.html">Lo más vendido</a>
+            <a href="contacto.html">Contacto</a>
+            <a href="ajustes.html">Ajustes</a>
+            <a href="cuenta.html">Cuenta</a>
+            <a href="carrito.html">Carrito</a>
+        </div>
+    </nav>
+
+    <section class="banner-contacto">
+        <h2>contáctanos en 202507106@icvh.edu.gt</h2>
+    </section>
+
+    <section class="por-que-nosotros">
+        <h2>POR QUÉ NOSOTROS</h2>
+        <div class="grid-beneficios">
+            <div class="beneficio-item"><h3>Productos naturales</h3><p>Cuidamos tu piel y la naturaleza</p></div>
+            <div class="beneficio-item"><h3>Ecológica Sustentable</h3><p>Hecho en Guatemala</p></div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <h2 style="color: var(--color-header);">TU EMPRESA DE CONFIANZA</h2>
+                <p>Nuestra misión es proveer soluciones de higiene beneficiando al medio ambiente con productos naturales como nuestro jabón de avena y miel.</p>
+            </div>
+            <div>
+                <h3 style="color: var(--color-secundario);">Sede Institucional</h3>
+                <p>IDCVH, San Miguel Petapa<br>Guatemala</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="sub-footer">
+        <span class="link-js" onclick="crearVentana('privacidad')">Política de Privacidad</span> | 
+        <span class="link-js" onclick="crearVentana('condiciones')">Términos y Condiciones</span> | 
+        © 2026 Creado por 5to. Bachillerato IDCVH
+    </div>
+
+    <script>
+        function crearVentana(tipo) {
+            let vieja = document.getElementById("ventanaEco"); if(vieja) vieja.remove();
+            let fondo = document.createElement("div"); fondo.id = "ventanaEco"; fondo.style.position = "fixed"; fondo.style.top = "0"; fondo.style.left = "0"; fondo.style.width = "100%"; fondo.style.height = "100%"; fondo.style.backgroundColor = "rgba(0,0,0,0.8)"; fondo.style.display = "flex"; fondo.style.justifyContent = "center"; fondo.style.alignItems = "center"; fondo.style.zIndex = "9999";
+            let cuadro = document.createElement("div"); cuadro.style.backgroundColor = document.documentElement.getAttribute('data-tema') === 'claro' ? '#fff' : '#1e1e1e'; cuadro.style.color = document.documentElement.getAttribute('data-tema') === 'claro' ? '#111' : '#fff'; cuadro.style.padding = "20px"; cuadro.style.borderRadius = "10px"; cuadro.style.width = "85%"; cuadro.style.maxWidth = "500px"; cuadro.style.border = "2px solid #4caf50";
+            let titulo = document.createElement("h2"); titulo.style.color = "#4caf50"; titulo.style.marginTop = "0";
+            let parrafo = document.createElement("p"); 
+            if(tipo === 'condiciones') { titulo.innerText = "Condiciones de Uso"; parrafo.innerHTML = "Proyecto desarrollado por 5to Baco del IDCVH."; } 
+            else { titulo.innerText = "Política de Privacidad"; parrafo.innerHTML = "No guardamos información de los usuarios."; }
+            let boton = document.createElement("button"); boton.innerText = "Entendido"; boton.style.backgroundColor = "#ffc107"; boton.style.color = "#000"; boton.style.border = "none"; boton.style.padding = "10px 20px"; boton.style.borderRadius = "5px"; boton.style.fontWeight = "bold"; boton.style.cursor = "pointer"; boton.style.marginTop = "15px";
+            boton.onclick = function() { fondo.remove(); };
+            cuadro.appendChild(titulo); cuadro.appendChild(parrafo); cuadro.appendChild(boton); fondo.appendChild(cuadro); document.body.appendChild(fondo);
+        }
+    </script>
+</body>
+</html>
