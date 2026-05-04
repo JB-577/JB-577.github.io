@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecofresh - Los Más Vendidos</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: #f3f3f3; transition: background-color 0.3s, color 0.3s;}
+        
+        /* --- ENCABEZADO ESTILO INICIO (AZUL) --- */
+        header { 
+            background-color: #5768ff; 
+            color: white; 
+            padding: 15px 20px 5px 20px; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+        }
+
+        .header-top { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            max-width: 1300px; 
+            margin: 0 auto; 
+            flex-wrap: wrap;
+        }
+        
+        /* Logo con enlace al inicio */
+        .logo { 
+            display: flex; 
+            align-items: center; 
+            font-size: 28px; 
+            font-weight: bold; 
+            letter-spacing: 1px; 
+            color: #fff; 
+            text-decoration: none; 
+        }
+        .logo img { height: 50px; margin-right: 15px; border-radius: 5px; background: white; }
+        
+        /* Buscador */
+        .search-bar { flex-grow: 0.5; display: flex; margin: 0 20px; }
+        .search-bar input { width: 100%; padding: 10px; border-radius: 4px 0 0 4px; border: none; outline: none; }
+        .search-bar button { padding: 10px 15px; background: #0f99f5; border: none; border-radius: 0 4px 4px 0; cursor: pointer; color: white; }
+
+        /* Botón Carrito */
+        .carrito-btn { 
+            background: #d9ff00; 
+            color: #333; 
+            padding: 8px 15px; 
+            border-radius: 4px; 
+            font-weight: bold; 
+            text-decoration: none; 
+            transition: 0.3s; 
+            display: flex;
+            align-items: center;
+        }
+        .carrito-btn:hover { background: #c4e600; }
+
+        /* Navegación (Pestañas) */
+        nav { max-width: 1300px; margin: 10px auto 5px auto; display: flex; gap: 20px; }
+        nav a { color: white; text-decoration: none; font-size: 14px; opacity: 0.9; padding-bottom: 5px; }
+        nav a:hover, nav a.active { opacity: 1; border-bottom: 2px solid white; font-weight: bold; }
+
+        /* --- CUERPO DE PÁGINA (CONSERVADO) --- */
+        .encabezado-titulo {
+            background-color: white;
+            padding: 40px 20px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        main { max-width: 1200px; margin: 0 auto; padding: 0 20px 40px 20px; }
+
+        .grid-vendidos {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 25px;
+        }
+
+        .tarjeta-best {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            position: relative;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+            transition: 0.3s;
+        }
+        .tarjeta-best:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+
+        .badge-best {
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: #24a4fa;
+            color: white;
+            padding: 4px 10px;
+            font-size: 12px;
+            font-weight: bold;
+            border-radius: 8px 0 8px 0;
+            z-index: 10;
+        }
+
+        .img-sim { height: 150px; background: #f9f9f9; display: flex; align-items: center; justify-content: center; overflow: hidden; margin-bottom: 15px; border-radius: 4px; }
+        .img-logo { width: 100%; height: 100%; object-fit: contain; } /* Mantiene relación de aspecto */
+
+        .rank { color: #565959; font-size: 13px; font-weight: bold; }
+        .nombre-p { font-size: 16px; color: #007185; margin: 10px 0; display: block; font-weight: 500; height: 40px; overflow: hidden; }
+        .estrellas { color: #41ad72; font-size: 18px; margin-bottom: 5px; }
+        .ventas-count { color: #565959; font-size: 12px; margin-left: 5px; }
+        .precio { font-size: 22px; font-weight: bold; color: #333; margin-bottom: 15px; display: block; }
+
+        .btn-compra {
+            background: #2bc3f1;
+            border: 1px solid #35bddf;
+            border-radius: 20px;
+            width: 100%;
+            padding: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+            color: #333;
+        }
+        .btn-compra:hover { background: #06a4ff; color: white; }
+
+        /* MODO OSCURO */
+        body.dark-mode { background-color: #121212; color: #e0e0e0; }
+        body.dark-mode header, body.dark-mode nav { background-color: #1e266d; }
+        body.dark-mode .encabezado-titulo { background-color: #1e1e1e; border-bottom: 1px solid #333; }
+        body.dark-mode .encabezado-titulo p { color: #aaa !important; }
+        body.dark-mode .tarjeta-best { background-color: #1e1e1e; border-color: #333; }
+        body.dark-mode .img-sim { background-color: #2a2a2a; }
+        body.dark-mode .nombre-p { color: #88ccff; }
+        body.dark-mode .precio { color: #e0e0e0; }
+        body.dark-mode .rank, body.dark-mode .ventas-count { color: #aaa; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-top">
+            <!-- Logo y nombre redirigen al inicio -->
+            <a href="index.html" class="logo">
+                <img src="logo.jpg" alt="Logo Ecofresh">
+                ECOFRESH
+            </a>
+
+            <!-- Barra de búsqueda -->
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Buscar productos biodegradables...">
+                <button onclick="realizarBusqueda()">🔍</button>
+            </div>
+
+            <!-- Botón de carrito con contador -->
+            <a href="carrito.html" class="carrito-btn">
+                🛒 Carrito: <span id="count" style="margin-left:5px">0</span>
+            </a>
+        </div>
+
+        <!-- Navegación con todas las pestañas -->
+        <nav>
+            <a href="index.html">Inicio</a>
+            <a href="categoria.html">Categorías</a>
+            <a href="ofertas.html">Ofertas</a>
+            <a href="vendido.html" class="active">Lo más vendido</a>
+            <a href="contacto.html">Contacto</a>
+            <a href="ajustes.html">Ajustes</a>
+            <a href="cuenta.html">Cuenta</a>
+        </nav>
+    </header>
+
+    <div class="encabezado-titulo">
+        <h1 style="margin:0; font-size: 32px;">Los más vendidos en Ecofresh</h1>
+        <p style="color: #666;">Nuestros productos más populares basados en ventas. Actualizado cada hora.</p>
+    </div>
+
+    <main>
+        <div class="grid-vendidos" id="contenedor-vendidos">
+            <!-- El JS cargará los productos aquí -->
+        </div>
+    </main>
+
+    <script>
+        const masVendidos = [
+            {n: 'Cepillo de dientes de bambú', p: 15, r: '4.8', v: '12,403', top: 1},
+            {n: 'Detergente lavatrastes biodegradable', p: 35, r: '4.9', v: '10,150', top: 2},
+            {n: 'Champú sólido en pastilla', p: 55, r: '4.7', v: '8,900', top: 3},
+            {n: 'Cera de abejas natural (Pisos)', p: 75, r: '4.6', v: '5,230', top: 4},
+            {n: 'Esponjas de fibra vegetal', p: 15, r: '4.5', v: '4,800', top: 5},
+            {n: 'Pasta de dientes orgánica', p: 40, r: '4.8', v: '4,100', top: 6},
+            {n: 'Limpiador inodoros bio', p: 38, r: '4.4', v: '3,900', top: 7},
+            {n: 'Cesto de mimbre natural', p: 120, r: '4.9', v: '2,500', top: 8}
+        ];
+
+        function cargarVendidos() {
+            const container = document.getElementById('contenedor-vendidos');
+            container.innerHTML = ""; // Limpiar antes de cargar
+            masVendidos.forEach(p => {
+                container.innerHTML += `
+                    <div class="tarjeta-best">
+                        <div class="badge-best">nº ${p.top} más vendido</div>
+                        <div class="img-sim"><img src="${p.n}.jpg" alt="${p.n}" class="img-logo"></div>
+                        <span class="rank">Ranking de popularidad</span>
+                        <span class="nombre-p">${p.n}</span>
+                        <div class="estrellas">
+                            ${'★'.repeat(Math.floor(p.r))}<span style="color:#ccc">★</span>
+                            <span class="ventas-count">${p.v} vendidos</span>
+                        </div>
+                        <span class="precio">Q${p.p}.00</span>
+                        <button class="btn-compra" onclick="agregar('${p.n}', ${p.p})">Agregar al carrito</button>
+                    </div>
+                `;
+            });
+            actualizarContador();
+        }
+
+        function agregar(nombre, precio) {
+            let carrito = JSON.parse(localStorage.getItem('miCarrito')) || [];
+            carrito.push({ nombre: nombre, precio: precio });
+            localStorage.setItem('miCarrito', JSON.stringify(carrito));
+            actualizarContador();
+            alert('¡' + nombre + ' se agregó a tu carrito!');
+        }
+
+        function actualizarContador() {
+            let carrito = JSON.parse(localStorage.getItem('miCarrito')) || [];
+            const contador = document.getElementById('count');
+            if(contador) contador.innerText = carrito.length;
+        }
+
+        function realizarBusqueda() {
+            let query = document.getElementById('searchInput').value.trim();
+            if(query) { window.location.href = 'categoria.html?q=' + encodeURIComponent(query); }
+        }
+
+        function aplicarModoOscuro() {
+            if(localStorage.getItem('darkMode') === 'enabled') { document.body.classList.add('dark-mode'); }
+        }
+
+        window.onload = () => {
+            cargarVendidos();
+            aplicarModoOscuro();
+        };
+    </script>
+</body>
+</html>

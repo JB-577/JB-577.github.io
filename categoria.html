@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoFresh - Categorías Detalladas</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: #f3f3f3; transition: 0.3s;}
+        header { background-color: #5768ff; color: white; padding: 10px 20px; position: sticky; top: 0; z-index: 1000; }
+        .header-top { display: flex; justify-content: space-between; align-items: center; max-width: 1300px; margin: 0 auto; }
+        .logo { display: flex; align-items: center; font-size: 28px; font-weight: bold; letter-spacing: 1px; color: #fff; text-decoration: none; }
+        .logo img { height: 50px; margin-right: 15px; border-radius: 5px; }
+        .search-bar { flex-grow: 0.6; display: flex; margin: 0 20px; }
+        .search-bar input { width: 100%; padding: 8px; border-radius: 4px 0 0 4px; border: none; outline:none;}
+        .search-bar button { padding: 8px 15px; background: #0f99f5; border: none; border-radius: 0 4px 4px 0; cursor: pointer; color: white; }
+        nav { background-color: #5768ff; padding: 10px 20px; border-top: 1px solid rgba(255,255,255,0.1); }
+        .nav-content { max-width: 1300px; margin: 0 auto; display: flex; gap: 20px; }
+        .nav-content a { color: white; text-decoration: none; font-size: 14px; opacity: 0.9; padding: 5px 0; border-bottom: 2px solid transparent; }
+        .nav-content a:hover, .nav-content a.active { opacity: 1; border-bottom: 2px solid white; font-weight: bold;}
+        .carrito-btn { background: #d9ff00; color: #333; padding: 8px 15px; border-radius: 4px; font-weight: bold; text-decoration: none; transition: 0.3s; }
+        main { padding: 20px; max-width: 1300px; margin: 0 auto; }
+        .banner-categoria { background: #5768ff; color: white; padding: 20px; border-radius: 10px; margin-bottom: 20px; text-align: center; }
+        .grid-seleccion { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 40px; }
+        .tarjeta-filtro { background: white; padding: 15px; border-radius: 10px; text-align: center; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.1); border: 2px solid transparent; transition: 0.3s; color:#333; }
+        .tarjeta-filtro:hover, .tarjeta-filtro.activa { border-color: #5768ff; transform: translateY(-3px); }
+        .tarjeta-filtro.activa { background-color: #e8f0fe; }
+        .grid-productos { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+        .producto { background: white; padding: 15px; border-radius: 8px; border: 1px solid #ddd; text-align: center; transition: 0.3s; color:#333;}
+        .producto:hover { box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .precio { color: #333; font-weight: bold; font-size: 18px; display: block; margin: 10px 0; }
+        .btn-add { background: #2bc3f1; border: 1px solid #35bddf; border-radius: 20px; padding: 10px; width: 100%; cursor: pointer; font-weight: bold; transition: 0.3s; color:#333;}
+        .btn-add:hover { background: #06a4ff; }
+        .img-logo { width: 100%; height: 100%; object-fit: contain; }
+
+        /* MODO OSCURO */
+        body.dark-mode { background-color: #121212; color: #e0e0e0; }
+        body.dark-mode header, body.dark-mode nav { background-color: #1e266d; }
+        body.dark-mode .banner-categoria { background-color: #1e266d; }
+        body.dark-mode .tarjeta-filtro, body.dark-mode .producto { background-color: #1e1e1e; border-color: #333; color: #e0e0e0; }
+        body.dark-mode .tarjeta-filtro.activa { background-color: #2a2a2a; border-color: #88ff88; }
+        body.dark-mode .precio { color: #88ff88; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-top">
+            <a href="index.html" class="logo">
+                <img src="logo.jpg" alt="Logo EcoFresh">
+                ECOFRESH
+            </a>
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Buscar productos biodegradables...">
+                <button onclick="realizarBusqueda()">🔍</button>
+            </div>
+            <a href="carrito.html" class="carrito-btn">🛒 Carrito: <span id="count">0</span></a>
+        </div>
+    </header>
+    <nav>
+        <div class="nav-content">
+            <a href="index.html">Inicio</a>
+            <a href="categoria.html" class="active">Categorías</a>
+            <a href="ofertas.html">Ofertas</a>
+            <a href="vendido.html">Lo más vendido</a>
+            <a href="contacto.html">Contacto</a>
+            <a href="ajustes.html">Ajustes</a>
+            <a href="cuenta.html">Cuenta</a>
+        </div>
+    </nav>
+    <main>
+        <div class="banner-categoria">
+            <h1 id="titulo-cat">Todas las Categorías</h1>
+            <p>Selecciona una categoría o busca para ver los productos disponibles.</p>
+        </div>
+        <div class="grid-seleccion">
+            <div class="tarjeta-filtro activa" onclick="filtrar('Cocina', this)"><br>Cocina</div>
+            <div class="tarjeta-filtro" onclick="filtrar('Baño', this)"><br>Baño</div>
+            <div class="tarjeta-filtro" onclick="filtrar('Pisos', this)"><br>Pisos</div>
+            <div class="tarjeta-filtro" onclick="filtrar('Personal', this)"><br>Higiene Personal</div>
+            <div class="tarjeta-filtro" onclick="filtrar('Lavandería', this)"><br>Lavandería</div>
+        </div>
+        <div class="grid-productos" id="contenedor-productos">
+            <!-- Productos cargados por JS -->
+        </div>
+    </main>
+    <script>
+        const productosData = {
+            'Cocina': [
+                {n: 'Detergente lavatrastes biodegradable', p: 35}, {n: 'Esponjas de fibra vegetal', p: 15},
+                {n: 'Escobas de cerdas naturales', p: 45}, {n: 'Desengrasante botánico', p: 40},
+                {n: 'Paños de algodón orgánico', p: 25}, {n: 'Bicarbonato de sodio granel', p: 20},
+                {n: 'Vinagre blanco limpieza', p: 18}, {n: 'Jabón de castilla líquido', p: 55},
+                {n: 'Cepillos de madera natural', p: 22}, {n: 'Jabón en barra sólido cocina', p: 12}
+            ],
+            'Baño': [
+                {n: 'Limpiador inodoros biodegradable', p: 38}, {n: 'Pastilla desinfectante natural', p: 15},
+                {n: 'Desincrustante ácido cítrico', p: 30}, {n: 'Limpiador azulejos ecológico', p: 35},
+                {n: 'Esponjas de lufa natural', p: 18}, {n: 'Cepillo inodoro bambú', p: 40},
+                {n: 'Paños microfibra reciclada', p: 20}, {n: 'Aceites esenciales aromatizar', p: 45},
+                {n: 'Vinagre mamparas y grifos', p: 22}
+            ],
+            'Pisos': [
+                {n: 'Jabón de potasa cerámica', p: 45}, {n: 'Limpiador jabón de coco', p: 40},
+                {n: 'Fregona algodón orgánico', p: 60}, {n: 'Cera de abejas madera', p: 75},
+                {n: 'Jabón negro multiusos', p: 50}, {n: 'Aceite de linaza madera', p: 65},
+                {n: 'Cubo materiales reciclados', p: 85}, {n: 'Escoba fibra de coco', p: 40},
+                {n: 'Bayetas fibras naturales', p: 15}, {n: 'Infusión romero natural', p: 10}
+            ],
+            'Personal': [
+                {n: 'Jabón Corporal de Avena y Miel', p: 28}, {n: 'Shampoo Líquido a base de Sábila', p: 45},
+                {n: 'Desodorante Natural de Cítricos', p: 35}, {n: 'Champú sólido pastilla', p: 55},
+                {n: 'Acondicionador sin plástico', p: 60}, {n: 'Pasta dientes tabletas', p: 40},
+                {n: 'Cepillo de dientes bambú', p: 15}, {n: 'Hilo dental compostable', p: 20},
+                {n: 'Esponjas marinas naturales', p: 35}, {n: 'Crema manteca de karité', p: 70}
+            ],
+            'Lavandería': [
+                {n: 'Detergente líquido granel', p: 80}, {n: 'Nueces de lavado natural', p: 50},
+                {n: 'Percarbonato blanqueador', p: 35}, {n: 'Vinagre suavizante natural', p: 15},
+                {n: 'Bolas de lana secadora', p: 45}, {n: 'Cepillo manchas madera', p: 25},
+                {n: 'Bolsas lavado algodón', p: 30}, {n: 'Jabón de pan manchas', p: 12},
+                {n: 'Cesto de mimbre bambú', p: 120}, {n: 'Perchas madera reciclada', p: 40}
+            ]
+        };
+
+        function renderizarProducto(prod) {
+            return `
+                <div class="producto">
+                    <div style="height:150px; background:#f9f9f9; margin-bottom:10px; display:flex; align-items:center; justify-content:center; border-radius:5px; overflow:hidden;">
+                        <img src="${prod.n}.jpg" alt="${prod.n}" class="img-logo">
+                    </div>
+                    <strong>${prod.n}</strong>
+                    <span class="precio">Q${prod.p}.00</span>
+                    <button class="btn-add" onclick="agregarAlCarrito('${prod.n}', ${prod.p})">Agregar al carrito</button>
+                </div>
+            `;
+        }
+
+        function filtrar(categoria, elemento) {
+            document.querySelectorAll('.tarjeta-filtro').forEach(t => t.classList.remove('activa'));
+            if(elemento) elemento.classList.add('activa');
+            document.getElementById('titulo-cat').innerText = "Categoría: " + categoria;
+            const contenedor = document.getElementById('contenedor-productos');
+            contenedor.innerHTML = ""; 
+            productosData[categoria].forEach(prod => { contenedor.innerHTML += renderizarProducto(prod); });
+        }
+
+        function buscarYRenderizar(termino) {
+            document.querySelectorAll('.tarjeta-filtro').forEach(t => t.classList.remove('activa'));
+            document.getElementById('titulo-cat').innerText = "Resultados para: " + termino;
+            const contenedor = document.getElementById('contenedor-productos');
+            contenedor.innerHTML = "";
+            let encontrados = false;
+            
+            Object.values(productosData).forEach(lista => {
+                lista.forEach(prod => {
+                    if(prod.n.toLowerCase().includes(termino.toLowerCase())) {
+                        contenedor.innerHTML += renderizarProducto(prod);
+                        encontrados = true;
+                    }
+                });
+            });
+            if(!encontrados) contenedor.innerHTML = "<p>No se encontraron productos.</p>";
+        }
+
+        function realizarBusqueda() {
+            let query = document.getElementById('searchInput').value.trim();
+            if(query) { window.location.href = 'categoria.html?q=' + encodeURIComponent(query); }
+        }
+
+        function agregarAlCarrito(nombre, precio) {
+            let carrito = JSON.parse(localStorage.getItem('miCarrito')) || [];
+            carrito.push({ nombre: nombre, precio: precio });
+            localStorage.setItem('miCarrito', JSON.stringify(carrito));
+            actualizarContador();
+            alert('¡' + nombre + ' agregado al carrito!');
+        }
+
+        function actualizarContador() {
+            let carrito = JSON.parse(localStorage.getItem('miCarrito')) || [];
+            document.getElementById('count').innerText = carrito.length;
+        }
+
+        function aplicarModoOscuro() {
+            if(localStorage.getItem('darkMode') === 'enabled') { document.body.classList.add('dark-mode'); }
+        }
+
+        window.onload = () => {
+            actualizarContador();
+            aplicarModoOscuro();
+            const urlParams = new URLSearchParams(window.location.search);
+            const q = urlParams.get('q');
+            if(q) { buscarYRenderizar(q); } 
+            else { filtrar('Cocina', document.querySelector('.tarjeta-filtro')); }
+        };
+    </script>
+</body>
+</html>

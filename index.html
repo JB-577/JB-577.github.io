@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecofresh - Tienda Oficial</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: #f3f3f3; transition: background-color 0.3s, color 0.3s; }
+        
+        /* Barra superior estilo corporativo */
+        header { background-color: #5768ff; color: white; padding: 10px 20px; position: sticky; top: 0; z-index: 1000; }
+        .header-top { display: flex; justify-content: space-between; align-items: center; max-width: 1300px; margin: 0 auto; }
+        
+        /* Ajustes para el logo */
+        .logo { display: flex; align-items: center; font-size: 28px; font-weight: bold; letter-spacing: 1px; color: #fff; text-decoration: none; }
+        .logo img { height: 50px; margin-right: 15px; border-radius: 5px; }
+        
+        /* Buscador */
+        .search-bar { flex-grow: 0.6; display: flex; }
+        .search-bar input { width: 100%; padding: 8px; border-radius: 4px 0 0 4px; border: none; outline: none;}
+        .search-bar button { padding: 8px 15px; background: #0f99f5; border: none; border-radius: 0 4px 4px 0; cursor: pointer; color: white; }
+
+        /* Navegación */
+        nav { background-color: #5768ff; padding: 10px 20px; }
+        .nav-content { max-width: 1300px; margin: 0 auto; display: flex; gap: 20px; }
+        .nav-content a { color: white; text-decoration: none; font-size: 14px; opacity: 0.9; padding-bottom: 5px; }
+        .nav-content a:hover, .nav-content a.active { opacity: 1; border-bottom: 2px solid white; font-weight: bold; }
+
+        .carrito-btn { background: #d9ff00; color: #333; padding: 8px 15px; border-radius: 4px; font-weight: bold; text-decoration: none; transition: 0.3s; }
+
+        /* Cuerpo */
+        main { max-width: 1300px; margin: 40px auto; padding: 0 20px; }
+        
+        /* Hero Banner actualizado con imagen de fondo */
+        .hero-banner { 
+            background-image: url('fondo.jpg'); 
+            background-size: cover; 
+            background-position: center;
+            color: white; 
+            padding: 100px; 
+            border-radius: 8px; 
+            margin-bottom: 30px; 
+            text-align: center; 
+            box-shadow: inset 0 0 0 1000px rgba(0,0,0,0.15);
+        }
+
+        /* Estilo del nuevo botón Cotizar */
+        .btn-cotizar {
+            background-color: #eaff66;
+            color: #333;
+            padding: 15px 40px;
+            font-size: 20px;
+            font-weight: bold;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+        }
+        .btn-cotizar:hover { background-color: #d8ec48; }
+
+        /* Grid de productos */
+        .grid-productos { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
+        .producto-card { background: white; border: 1px solid #ddd; padding: 15px; display: flex; flex-direction: column; justify-content: space-between; transition: 0.3s; border-radius: 4px; color: #333; }
+        .producto-card:hover { box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .img-sim { height: 140px; background: #f8f8f8; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; border-radius: 4px; overflow: hidden; }
+        .img-logo { width: 100%; height: 100%; object-fit: contain; } /* Relación de aspecto correcta para las imágenes */
+        .p-name { font-size: 14px; font-weight: 500; height: 40px; overflow: hidden; margin-bottom: 10px; color: #007185; }
+        .p-price { font-size: 20px; font-weight: bold; color: #333; margin-bottom: 15px; }
+        .btn-add { background: #2bc3f1; border: 1px solid #35bddf; border-radius: 20px; padding: 8px; cursor: pointer; font-weight: bold; font-size: 13px; color: #333;}
+        .btn-add:hover { background: #06a4ff; color: white; }
+
+        /* MODO OSCURO */
+        body.dark-mode { background-color: #121212; color: #e0e0e0; }
+        body.dark-mode header, body.dark-mode nav { background-color: #1e266d; }
+        body.dark-mode .hero-banner { box-shadow: inset 0 0 0 1000px rgba(0,0,0,0.6); }
+        body.dark-mode .producto-card { background-color: #1e1e1e; border-color: #333; }
+        body.dark-mode .img-sim { background-color: #2a2a2a; }
+        body.dark-mode .p-name { color: #88ccff; }
+        body.dark-mode .p-price { color: #88ff88; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-top">
+            <a href="index.html" class="logo">
+                <img src="logo.jpg" alt="Logo Ecofresh">
+                ECOFRESH
+            </a>
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Buscar productos biodegradables...">
+                <button onclick="realizarBusqueda()">🔍</button>
+            </div>
+            <a href="carrito.html" class="carrito-btn">🛒 Carrito: <span id="count">0</span></a>
+        </div>
+    </header>
+
+    <nav>
+        <div class="nav-content">
+            <a href="index.html" class="active">Inicio</a>
+            <a href="categoria.html">Categorías</a>
+            <a href="ofertas.html">Ofertas</a>
+            <a href="vendido.html">Lo más vendido</a>
+            <a href="contacto.html">Contacto</a>
+            <a href="ajustes.html">Ajustes</a>
+            <a href="cuenta.html">Cuenta</a>
+        </div>
+    </nav>
+
+    <main>
+        <div class="hero-banner">
+            <h1 style="font-size: 80px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); margin-top: 0;">DALE FRESCURA A TU <br>VIDA CON ECOFRESH</h1>
+             <p style="font-size: 25px; font-weight: 300; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); margin-bottom: 20px;">PRODUCTOS DE HIGIENE PERSONAL
+                <br>CONFIABLES SIN DAÑAR EL MEDIO
+                <br>AMBIENTE
+             </p>
+             <a href="cuenta.html" class="btn-cotizar">EMPEZAR</a>
+        </div>
+
+        <div class="grid-productos" id="grid">
+            <!-- Los productos se cargarán aquí automáticamente -->
+        </div>
+    </main>
+
+    <script>
+        const productosTotales = [
+            // Cocina
+            {n: 'Detergente lavatrastes biodegradable', p: 35},
+            {n: 'Esponjas de fibra vegetal', p: 15},
+            {n: 'Escobas de cerdas naturales', p: 45},
+            {n: 'Desengrasante botánico', p: 40},
+            {n: 'Paños de algodón orgánico', p: 25},
+            {n: 'Bicarbonato de sodio a granel', p: 20},
+            {n: 'Vinagre blanco de limpieza', p: 18},
+            {n: 'Jabón de castilla natural', p: 55},
+            {n: 'Cepillos de madera natural', p: 22},
+            {n: 'Jabón en barra sólido cocina', p: 12},
+            // Baño
+            {n: 'Limpiador de inodoros bio', p: 38},
+            {n: 'Pastilla desinfectante natural', p: 15},
+            {n: 'Desincrustante ácido cítrico', p: 30},
+            {n: 'Limpiador de azulejos eco', p: 35},
+            {n: 'Esponjas de lufa natural', p: 18},
+            {n: 'Cepillo inodoro de bambú', p: 40},
+            {n: 'Paños de microfibra reciclada', p: 20},
+            {n: 'Aceites esenciales puros', p: 45},
+            {n: 'Vinagre para mamparas', p: 22},
+            // Pisos
+            {n: 'Jabón de potasa cerámica', p: 45},
+            {n: 'Limpiador jabón de coco', p: 40},
+            {n: 'Fregona algodón orgánico', p: 60},
+            {n: 'Cera de abejas madera', p: 75},
+            {n: 'Jabón negro multiusos', p: 50},
+            {n: 'Aceite de linaza madera', p: 65},
+            {n: 'Cubo materiales reciclados', p: 85},
+            {n: 'Escoba fibra de coco', p: 40},
+            {n: 'Bayetas fibras naturales', p: 15},
+            {n: 'Infusión romero natural', p: 10},
+            // Personal
+            {n: 'Champú sólido en pastilla', p: 55},
+            {n: 'Acondicionador sin plástico', p: 60},
+            {n: 'Jabón corporal artesanal', p: 25},
+            {n: 'Desodorante crema vidrio', p: 45},
+            {n: 'Pasta dientes tabletas', p: 40},
+            {n: 'Cepillo de dientes bambú', p: 15},
+            {n: 'Hilo dental compostable', p: 20},
+            {n: 'Esponjas marinas naturales', p: 35},
+            {n: 'Discos desmaquillantes eco', p: 30},
+            {n: 'Crema manteca de karité', p: 70},
+            // Lavandería
+            {n: 'Detergente líquido granel', p: 80},
+            {n: 'Nueces de lavado natural', p: 50},
+            {n: 'Percarbonato blanqueador', p: 35},
+            {n: 'Vinagre suavizante natural', p: 15},
+            {n: 'Bolas de lana secadora', p: 45},
+            {n: 'Cepillo manchas madera', p: 25},
+            {n: 'Bolsas lavado algodón', p: 30},
+            {n: 'Jabón de pan manchas', p: 12},
+            {n: 'Cesto de mimbre natural', p: 120},
+            {n: 'Perchas madera reciclada', p: 40}
+        ];
+
+        // Función para mezclar los productos (Shuffle)
+        function mezclar(array) {
+            return array.sort(() => Math.random() - 0.5);
+        }
+
+        function cargarProductos() {
+            const grid = document.getElementById('grid');
+            const listaMezclada = mezclar([...productosTotales]);
+            
+            listaMezclada.forEach(p => {
+                grid.innerHTML += `
+                    <div class="producto-card">
+                        <div class="img-sim"><img src="${p.n}.jpg" alt="${p.n}" class="img-logo"></div>
+                        <div class="p-name">${p.n}</div>
+                        <div class="p-price">Q${p.p}.00</div>
+                        <button class="btn-add" onclick="agregar('${p.n}', ${p.p})">Agregar al carrito</button>
+                    </div>
+                `;
+            });
+            actualizarContador();
+        }
+
+        function agregar(nombre, precio) {
+            let carrito = JSON.parse(localStorage.getItem('miCarrito')) || [];
+            carrito.push({ nombre: nombre, precio: precio });
+            localStorage.setItem('miCarrito', JSON.stringify(carrito));
+            actualizarContador();
+            alert('¡' + nombre + ' agregado al carrito!');
+        }
+
+        function actualizarContador() {
+            let carrito = JSON.parse(localStorage.getItem('miCarrito')) || [];
+            document.getElementById('count').innerText = carrito.length;
+        }
+
+        function realizarBusqueda() {
+            let query = document.getElementById('searchInput').value.trim();
+            if(query) { window.location.href = 'categoria.html?q=' + encodeURIComponent(query); }
+        }
+
+        function aplicarModoOscuro() {
+            if(localStorage.getItem('darkMode') === 'enabled') { document.body.classList.add('dark-mode'); }
+        }
+
+        window.onload = () => {
+            cargarProductos();
+            aplicarModoOscuro();
+        };
+    </script>
+</body>
+</html>

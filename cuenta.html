@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoFresh - Mi Cuenta</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: #f3f3f3; transition:0.3s; }
+        header { background-color: #5768ff; color: white; padding: 10px 20px; position: sticky; top: 0; z-index: 1000; }
+        .header-top { display: flex; justify-content: space-between; align-items: center; max-width: 1300px; margin: 0 auto; }
+        .logo { display: flex; align-items: center; font-size: 28px; font-weight: bold; letter-spacing: 1px; color: #fff; text-decoration: none; }
+        .logo img { height: 50px; margin-right: 15px; border-radius: 5px; }
+        .search-bar { flex-grow: 0.6; display: flex; }
+        .search-bar input { width: 100%; padding: 8px; border-radius: 4px 0 0 4px; border: none; outline:none;}
+        .search-bar button { padding: 8px 15px; background: #0f99f5; border: none; border-radius: 0 4px 4px 0; cursor: pointer; color:white;}
+        nav { background-color: #5768ff; padding: 10px 20px; }
+        .nav-content { max-width: 1300px; margin: 0 auto; display: flex; gap: 20px; }
+        .nav-content a { color: white; text-decoration: none; font-size: 14px; opacity: 0.9; padding:5px 0;}
+        .nav-content a:hover, .nav-content a.active { opacity: 1; border-bottom: 2px solid white; font-weight:bold;}
+        .carrito-btn { background: #d9ff00; color: #333; padding: 8px 15px; border-radius: 4px; font-weight: bold; text-decoration: none; transition: 0.3s; }
+        
+        .container-cuenta { max-width: 500px; margin: 40px auto; background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); overflow: hidden; }
+        .login-box { padding: 30px; }
+        .login-box h2 { margin-top: 0; color: #5768ff; }
+        .input-group { margin-bottom: 15px; }
+        .input-group label { display: block; margin-bottom: 5px; font-size: 14px; font-weight:bold;}
+        .input-group input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        .btn-login { width: 100%; background: #ffd814; border: 1px solid #fcd200; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: bold; margin-top: 10px; color:#333; }
+        
+        .perfil-box { display: none; }
+        .user-banner { background: linear-gradient(to right, #5768ff, #3a48cc); color: white; padding: 25px; display: flex; align-items: center; }
+        .avatar { width: 60px; height: 60px; background: white; color: #5768ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; margin-right: 15px; font-weight:bold;}
+        .menu-lista { list-style: none; padding: 0; margin: 0; }
+        .menu-lista li { border-bottom: 1px solid #eee; }
+        .menu-lista a { display: block; padding: 15px 20px; text-decoration: none; color: #333; font-size: 15px; display: flex; justify-content: space-between; }
+        .menu-lista a:hover { background: #f9f9f9; }
+
+        /* MODO OSCURO */
+        body.dark-mode { background-color: #121212; color: #e0e0e0; }
+        body.dark-mode header, body.dark-mode nav { background-color: #1e266d; }
+        body.dark-mode .container-cuenta { background-color: #1e1e1e; border: 1px solid #333; }
+        body.dark-mode .login-box h2 { color: #88ccff; }
+        body.dark-mode .input-group input { background-color: #2a2a2a; color: white; border-color: #444; }
+        body.dark-mode .menu-lista a { color: #e0e0e0; border-color: #333; }
+        body.dark-mode .menu-lista li { border-color: #333; }
+        body.dark-mode .menu-lista a:hover { background-color: #2a2a2a; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-top">
+            <a href="index.html" class="logo">
+                <img src="logo.jpg" alt="Logo EcoFresh">
+                ECOFRESH
+            </a>
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Buscar productos biodegradables...">
+                <button onclick="realizarBusqueda()">🔍</button>
+            </div>
+            <a href="carrito.html" class="carrito-btn">🛒 Carrito: <span id="count">0</span></a>
+        </div>
+    </header>
+    <nav>
+        <div class="nav-content">
+            <a href="index.html">Inicio</a>
+            <a href="categoria.html">Categorías</a>
+            <a href="ofertas.html">Ofertas</a>
+            <a href="vendido.html">Lo más vendido</a>
+            <a href="contacto.html">Contacto</a>
+            <a href="ajustes.html">Ajustes</a>
+            <a href="cuenta.html" class="active">Cuenta</a>
+        </div>
+    </nav>
+    <div class="container-cuenta">
+        <div id="loginSection" class="login-box">
+            <h2>Iniciar sesión</h2>
+            <div class="input-group">
+                <label>Correo electrónico personal</label>
+                <input type="email" id="emailInput" placeholder="ejemplo@correo.com">
+            </div>
+            <div class="input-group">
+                <label>Contraseña</label>
+                <input type="password" id="passInput" placeholder="******">
+            </div>
+            <button class="btn-login" onclick="iniciarSesion()">Continuar</button>
+        </div>
+        <div id="perfilSection" class="perfil-box">
+            <div class="user-banner">
+                <div class="avatar" id="avatarLetra">U</div>
+                <div>
+                    <h3 id="userNameDisplay" style="margin:0">Usuario EcoFresh</h3>
+                    <p id="userEmailDisplay" style="margin:0; font-size: 12px; opacity: 0.8;"></p>
+                </div>
+            </div>
+            <ul class="menu-lista">
+                <li><a href="#" onclick="cerrarSesion()" style="color: #ff6b6b; font-weight: bold;">Cerrar sesión</a></li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        function actualizarContador() {
+            let carrito = JSON.parse(localStorage.getItem('miCarrito')) || [];
+            document.getElementById('count').innerText = carrito.length;
+        }
+        function realizarBusqueda() {
+            let query = document.getElementById('searchInput').value.trim();
+            if(query) { window.location.href = 'categoria.html?q=' + encodeURIComponent(query); }
+        }
+        function iniciarSesion() {
+            const email = document.getElementById('emailInput').value;
+            if(email.includes('@')) {
+                document.getElementById('loginSection').style.display = 'none';
+                document.getElementById('perfilSection').style.display = 'block';
+                const nombreSugerido = email.split('@')[0];
+                document.getElementById('userNameDisplay').innerText = "Hola, " + nombreSugerido;
+                document.getElementById('userEmailDisplay').innerText = email;
+                document.getElementById('avatarLetra').innerText = nombreSugerido.charAt(0).toUpperCase();
+            } else {
+                alert('Por favor, ingresa un correo válido.');
+            }
+        }
+        function cerrarSesion() {
+            document.getElementById('loginSection').style.display = 'block';
+            document.getElementById('perfilSection').style.display = 'none';
+        }
+        function aplicarModoOscuro() {
+            if(localStorage.getItem('darkMode') === 'enabled') { document.body.classList.add('dark-mode'); }
+        }
+        window.onload = () => { actualizarContador(); aplicarModoOscuro(); };
+    </script>
+</body>
+</html>

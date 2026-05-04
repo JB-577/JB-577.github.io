@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoFresh - Mi Carrito</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: #f3f3f3; transition: 0.3s;}
+        header { background-color: #5768ff; color: white; padding: 10px 20px; position: sticky; top: 0; z-index: 1000; }
+        .header-top { display: flex; justify-content: space-between; align-items: center; max-width: 1300px; margin: 0 auto; }
+        .logo { display: flex; align-items: center; font-size: 28px; font-weight: bold; letter-spacing: 1px; color: #fff; text-decoration: none; }
+        .logo img { height: 50px; margin-right: 15px; border-radius: 5px; }
+        .search-bar { flex-grow: 0.6; display: flex; }
+        .search-bar input { width: 100%; padding: 8px; border-radius: 4px 0 0 4px; border: none; outline:none;}
+        .search-bar button { padding: 8px 15px; background: #0f99f5; border: none; border-radius: 0 4px 4px 0; cursor: pointer; color:white;}
+        nav { background-color: #5768ff; padding: 10px 20px; border-top: 1px solid rgba(255,255,255,0.2); }
+        .nav-content { max-width: 1300px; margin: 0 auto; display: flex; gap: 20px; }
+        .nav-content a { color: white; text-decoration: none; font-size: 14px; opacity: 0.9; padding:5px 0;}
+        .nav-content a:hover { opacity: 1; border-bottom: 2px solid white; font-weight:bold;}
+        .carrito-btn { background: #d9ff00; color: #333; padding: 8px 15px; border-radius: 4px; font-weight: bold; text-decoration: none; transition: 0.3s; }
+        
+        main { padding: 20px; max-width: 1300px; margin: 20px auto; display: flex; gap: 20px; flex-wrap:wrap;}
+        .seccion-productos { flex: 2; background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); min-width:300px;}
+        .seccion-pago { flex: 1; background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); height: fit-content; min-width:300px;}
+        .producto-en-carrito { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ddd; padding: 15px 0; }
+        .producto-info-container { display:flex; align-items:center; gap: 15px; }
+        .img-logo { width: 60px; height: 60px; object-fit: contain; border-radius: 4px; background:#f9f9f9; padding:5px;}
+        .info-producto { display: flex; flex-direction: column; }
+        .nombre-p { font-weight: bold; font-size: 18px; color: #007185; }
+        .precio-p { color: #B12704; font-weight: bold; font-size:18px;}
+        .btn-eliminar { background: none; border: none; color: #007185; cursor: pointer; text-decoration: underline; font-size: 13px; text-align: left; padding: 0; margin-top: 5px; }
+        .btn-comprar { background-color: #ffd814; border: 1px solid #fcd200; border-radius: 8px; padding: 12px; width: 100%; cursor: pointer; font-weight: bold; font-size: 16px; margin-top: 15px; color:#333;}
+        .btn-vaciar { background-color: #e7e7e7; border: 1px solid #adb1b8; border-radius: 8px; padding: 5px 10px; cursor: pointer; margin-top: 20px; color:#333;}
+        .total-texto { font-size: 20px; font-weight: bold; }
+        .carrito-vacio { text-align: center; padding: 40px; }
+
+        /* MODO OSCURO */
+        body.dark-mode { background-color: #121212; color: #e0e0e0; }
+        body.dark-mode header, body.dark-mode nav { background-color: #1e266d; }
+        body.dark-mode .seccion-productos, body.dark-mode .seccion-pago { background-color: #1e1e1e; border: 1px solid #333; }
+        body.dark-mode .producto-en-carrito { border-color: #333; }
+        body.dark-mode .nombre-p, body.dark-mode .btn-eliminar { color: #88ccff; }
+        body.dark-mode .precio-p { color: #ff8888; }
+        body.dark-mode .img-logo { background: #2a2a2a; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-top">
+            <a href="index.html" class="logo">
+                <img src="logo.jpg" alt="Logo EcoFresh">
+                ECOFRESH
+            </a>
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Buscar productos biodegradables...">
+                <button onclick="realizarBusqueda()">🔍</button>
+            </div>
+            <a href="carrito.html" class="carrito-btn">🛒 Carrito: <span id="count">0</span></a>
+        </div>
+    </header>
+    <nav>
+        <div class="nav-content">
+            <a href="index.html">Inicio</a>
+            <a href="categoria.html">Categorías</a>
+            <a href="ofertas.html">Ofertas</a>
+            <a href="vendido.html">Lo más vendido</a>
+            <a href="contacto.html">Contacto</a>
+            <a href="ajustes.html">Ajustes</a>
+            <a href="cuenta.html">Cuenta</a>
+        </div>
+    </nav>
+    <main id="contenedor-principal">
+        <div class="seccion-productos" id="lista-carrito">
+            <h2>Carrito de compras</h2>
+            <div id="items-carrito"></div>
+        </div>
+        <div class="seccion-pago" id="resumen-pago">
+            <div class="total-texto">Subtotal: <span id="precio-total">Q0.00</span></div>
+            <p style="font-size: 13px; color: #4caf50;">¡Tu pedido califica para envío GRATIS!</p>
+            <button class="btn-comprar" onclick="realizarCompra()">Proceder al pago</button>
+            <button class="btn-vaciar" onclick="vaciarCarrito()">Vaciar carrito</button>
+        </div>
+    </main>
+    <script>
+        function cargarCarrito() {
+            const listaItems = document.getElementById('items-carrito');
+            const precioTotalTxt = document.getElementById('precio-total');
+            const contadorHeader = document.getElementById('count');
+            
+            let carrito = JSON.parse(localStorage.getItem('miCarrito')) || [];
+            contadorHeader.innerText = carrito.length;
+            
+            if (carrito.length === 0) {
+                listaItems.innerHTML = `
+                    <div class="carrito-vacio">
+                        <h3>Tu carrito está vacío.</h3>
+                        <a href="categoria.html" style="color:#5768ff;">Ir a buscar productos</a>
+                    </div>`;
+                precioTotalTxt.innerText = "Q0.00";
+                return;
+            }
+            
+            listaItems.innerHTML = "";
+            let total = 0;
+            carrito.forEach((producto, index) => {
+                total += producto.precio;
+                listaItems.innerHTML += `
+                    <div class="producto-en-carrito">
+                        <div class="producto-info-container">
+                            <img src="${producto.nombre}.jpg" alt="${producto.nombre}" class="img-logo">
+                            <div class="info-producto">
+                                <span class="nombre-p">${producto.nombre}</span>
+                                <span style="color: #4caf50; font-size: 12px;">En stock</span>
+                                <button class="btn-eliminar" onclick="eliminarProducto(${index})">Eliminar</button>
+                            </div>
+                        </div>
+                        <div class="precio-p">Q${producto.precio.toFixed(2)}</div>
+                    </div>
+                `;
+            });
+            precioTotalTxt.innerText = `Q${total.toFixed(2)}`;
+        }
+        function eliminarProducto(index) {
+            let carrito = JSON.parse(localStorage.getItem('miCarrito'));
+            carrito.splice(index, 1);
+            localStorage.setItem('miCarrito', JSON.stringify(carrito));
+            cargarCarrito(); 
+        }
+        function vaciarCarrito() {
+            if(confirm("¿Seguro de que quieres vaciar el carrito?")) {
+                localStorage.removeItem('miCarrito');
+                cargarCarrito();
+            }
+        }
+        function realizarCompra() {
+            alert("¡Gracias por tu interés! Esta es una actividad escolar, pero así es como funcionaría el proceso de pago real.");
+        }
+        function realizarBusqueda() {
+            let query = document.getElementById('searchInput').value.trim();
+            if(query) { window.location.href = 'categoria.html?q=' + encodeURIComponent(query); }
+        }
+        function aplicarModoOscuro() {
+            if(localStorage.getItem('darkMode') === 'enabled') { document.body.classList.add('dark-mode'); }
+        }
+        window.onload = () => { cargarCarrito(); aplicarModoOscuro(); };
+    </script>
+</body>
+</html>
